@@ -1,0 +1,1223 @@
+[100]
+NAME="Empty"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo ''
+[100-END]
+
+[101]
+NAME="Multiple commands"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'ls'
+  echo 'echo testing'
+  echo 'pwd'
+[101-END]
+
+[102]
+NAME="Cd"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'cd ..'
+  echo 'pwd'
+[102-END]
+
+[103]
+NAME="Env"
+SETUP="export TERM=xterm; export PATH=/bin:/usr/bin; export _=ls; export LS_COLORS=RID; export MYBG=4; export LVL=4; export NOTE=2; \
+  for var in $(env | cut -d= -f1); do \
+    if [[ ! \"\$var\" =~ ^(PATH|TERM|LS_COLORS|MYBG|LVL|NOTE)$ ]]; then \
+      unsetenv \$var; \
+    fi; \
+  done"
+CLEAN=""
+TESTS=
+  echo 'env'
+[103-END]
+
+[104]
+NAME="Setenv"
+SETUP="export TERM=xterm; export PATH=/bin:/usr/bin; export _=ls; export LS_COLORS=RID; export MYBG=4; export LVL=4; export NOTE=2; \
+  for var in $(env | cut -d= -f1); do \
+    if [[ ! \"\$var\" =~ ^(PATH|TERM|LS_COLORS|MYBG|LVL|NOTE)$ ]]; then \
+      unsetenv \$var; \
+    fi; \
+  done"
+CLEAN=""
+TESTS=
+  echo 'setenv TEST_VAR Hello'
+  echo 'env'
+[104-END]
+
+[105]
+NAME="Unsetenv"
+SETUP="export TERM=xterm; export PATH=/bin:/usr/bin; export _=ls; export LS_COLORS=RID; export MYBG=4; export LVL=4; export NOTE=2; \
+  for var in $(env | cut -d= -f1); do \
+    if [[ ! \"\$var\" =~ ^(PATH|TERM|LS_COLORS|MYBG|LVL|NOTE)$ ]]; then \
+      unsetenv \$var; \
+    fi; \
+  done"
+CLEAN=""
+TESTS=
+  echo 'setenv TEST_VAR Hello'
+  echo 'unsetenv TEST_VAR'
+  echo 'env'
+[105-END]
+
+[106]
+NAME="Exit"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'exit'
+[106-END]
+
+[107]
+NAME="Normal commands"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'ls'
+  echo 'pwd'
+  echo 'whoami'
+[107-END]
+
+[108]
+NAME="Absolute path commands"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo '/bin/ls'
+  echo '/usr/bin/whoami'
+[108-END]
+
+[109]
+NAME="Invalid commands"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'invalidcmd'
+  echo 'ls /doesnotexist'
+[109-END]
+
+[110]
+NAME="Extra whitespace"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo '    ls        '
+  echo '    pwd   '
+[110-END]
+
+[111]
+NAME="Segmentation fault (with ./segfault)"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo './tests/segfault'
+[111-END]
+
+[112]
+NAME="Cd to root"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'cd /'
+  echo 'pwd'
+[112-END]
+
+[113]
+NAME="Cd to /usr"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'cd /usr'
+  echo 'pwd'
+[113-END]
+
+[114]
+NAME="Cd back"
+SETUP="export TERM=xterm; export PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'cd ..'
+  echo 'pwd'
+  echo 'cd -'
+  echo 'pwd'
+[114-END]
+
+[115]
+NAME="Cd to home"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'cd ~'
+  echo 'pwd'
+[115-END]
+
+[116]
+NAME="Cd on a bad argument"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'cd 42; pwd'
+[116-END]
+
+[117]
+NAME="Cd on a non-directory argument"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'cd /bin/ls; pwd'
+[117-END]
+
+[118]
+NAME="Setenv without value"
+SETUP="export TERM=xterm; export PATH='/bin:/usr/bin'; export _=ls; export LS_COLORS=RID; export MYBG=4; export LVL=4; export NOTE=2; \
+  for var in $(env | cut -d= -f1); do \
+    if [[ ! \"\$var\" =~ ^(PATH|TERM|LS_COLORS|MYBG|LVL|NOTE)$ ]]; then \
+      unsetenv \$var; \
+    fi; \
+  done"
+CLEAN=""
+TESTS=
+  echo 'setenv VAR3'
+  echo 'env'
+[118-END]
+
+[119]
+NAME="Unsetenv without argument"
+SETUP="export TERM=xterm; export PATH='/bin:/usr/bin'; export _=ls; export LS_COLORS=RID; export MYBG=4; export LVL=4; export NOTE=2; \
+  for var in $(env | cut -d= -f1); do \
+    if [[ ! \"\$var\" =~ ^(PATH|TERM|LS_COLORS|MYBG|LVL|NOTE)$ ]]; then \
+      unsetenv \$var; \
+    fi; \
+  done"
+CLEAN=""
+TESTS=
+  echo 'unsetenv'
+  echo 'env'
+[119-END]
+
+[120]
+NAME="Setenv with invalid names"
+SETUP="export TERM=xterm; export PATH='/bin:/usr/bin'; export _=ls; export LS_COLORS=RID; export MYBG=4; export LVL=4; export NOTE=2; \
+  for var in $(env | cut -d= -f1); do \
+    if [[ ! \"\$var\" =~ ^(PATH|TERM|LS_COLORS|MYBG|LVL|NOTE)$ ]]; then \
+      unsetenv \$var; \
+    fi; \
+  done"
+CLEAN=""
+TESTS=
+  echo 'setenv 4var'
+  echo 'setenv _var5'
+  echo 'setenv var@'
+  echo 'env'
+[120-END]
+
+[121]
+NAME="Unsetenv multiple variables"
+SETUP="export TERM=xterm; export PATH='/bin:/usr/bin'; export _=ls; export LS_COLORS=RID; export MYBG=4; export LVL=4; export NOTE=2; \
+  for var in $(env | cut -d= -f1); do \
+    if [[ ! \"\$var\" =~ ^(PATH|TERM|LS_COLORS|MYBG|LVL|NOTE)$ ]]; then \
+      unsetenv \$var; \
+    fi; \
+  done"
+CLEAN=""
+TESTS=
+  echo 'setenv VAR2 value2'
+  echo 'setenv _var5 value5'
+  echo 'unsetenv VAR2 _var5'
+  echo 'env'
+[121-END]
+
+[122]
+NAME="Execute binary w/o permission"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'; chmod -x tests/segfault"
+CLEAN="chmod +x tests/segfault"
+TESTS=
+  echo './tests/segfault'
+[122-END]
+
+[123]
+NAME="Execute binary other architecture"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo './tests/apple_compiled_binary'
+[123-END]
+
+[124]
+NAME="Execute folder"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo './tests'
+[124-END]
+
+[200]
+NAME="Semicolon - Multiple commands"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'ls; pwd; echo hello world'
+[200-END]
+
+[201]
+NAME="Semicolon - Error handling"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'ls; invalidcommand; echo test'
+[201-END]
+
+[202]
+NAME="Simple pipe"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'ls | grep "."'
+[202-END]
+
+[203]
+NAME="Multiple pipes"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'ls | grep "." | wc -l'
+[203-END]
+
+[204]
+NAME="Redirection - Output to file"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN="rm -f tests/output.txt"
+TESTS=
+  echo 'echo "test redirection" > tests/output.txt; cat tests/output.txt'
+[204-END]
+
+[205]
+NAME="Redirection - Append to file"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN="rm -f tests/append.txt"
+TESTS=
+  echo 'echo "line 1" > tests/append.txt; echo "line 2" >> tests/append.txt; cat tests/append.txt'
+[205-END]
+
+[206]
+NAME="Redirection - Input from file"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'; echo 'hello world' > tests/input.txt"
+CLEAN="rm -f tests/input.txt"
+TESTS=
+  echo 'cat < tests/input.txt; echo "Input read successfully."'
+[206-END]
+
+[207]
+NAME="Pipe with redirection"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN="rm -f tests/pipe_out.txt"
+TESTS=
+  echo 'ls | grep "." > tests/pipe_out.txt; cat tests/pipe_out.txt'
+[207-END]
+
+[208]
+NAME="Pipe with redirection - Multiple commands"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN="rm -f tests/complex.txt"
+TESTS=
+  echo 'echo hello; ls | grep "." > tests/complex.txt; cat tests/complex.txt'
+[208-END]
+
+[209]
+NAME="Error handling - Invalid redirection file"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'; mkdir -p tests/testdir"
+CLEAN="rmdir tests/testdir"
+TESTS=
+  echo 'cat < nonexistent.txt; echo "test" > tests/testdir'
+[209-END]
+
+[210]
+NAME="Error handling - Invalid pipe command"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'ls | invalidcommand'
+[210-END]
+
+[211]
+NAME="Builtin with pipe"
+SETUP="export TERM=xterm; export PATH='/bin:/usr/bin'; export _=ls; export LS_COLORS=RID; export MYBG=4; export LVL=4; export NOTE=2; \
+  for var in $(env | cut -d= -f1); do \
+    if [[ ! \"\$var\" =~ ^(PATH|TERM|LS_COLORS|MYBG|LVL|NOTE)$ ]]; then \
+      unsetenv \$var; \
+    fi; \
+  done"
+CLEAN=""
+TESTS=
+  echo 'env | grep PATH'
+[211-END]
+
+[212]
+NAME="Ambiguous redirection (tcsh behavior)"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN="rm -f tests/multi1.txt tests/multi2.txt"
+TESTS=
+  echo 'echo hello > tests/multi1.txt > tests/multi2.txt; cat tests/multi1.txt; cat tests/multi2.txt'
+[212-END]
+
+[213]
+NAME="Chaining all features"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN="rm -f tests/final.txt"
+TESTS=
+  echo 'cd tests; ls | grep "." > final.txt; cat final.txt; cd -'
+[213-END]
+
+[214]
+NAME="Pipe with builtin commands"
+SETUP="export TERM=xterm; export PATH='/bin:/usr/bin'; export _=ls; export LS_COLORS=RID; export MYBG=4; export LVL=4; export NOTE=2; \
+  for var in $(env | cut -d= -f1); do \
+    if [[ ! \"\$var\" =~ ^(PATH|TERM|LS_COLORS|MYBG|LVL|NOTE)$ ]]; then \
+      unsetenv \$var; \
+    fi; \
+  done"
+CLEAN=""
+TESTS=
+  echo 'echo PATH | grep PATH; setenv TEST value | grep TEST'
+[214-END]
+
+[215]
+NAME="Empty pipe segments"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'ls | | grep tests; | ls; ls |'
+[215-END]
+
+[216]
+NAME="Empty redirection"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'ls > ; cat <'
+[216-END]
+
+[217]
+NAME="Edge case - consecutive separators"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'ls;;pwd; echo hello;; echo world'
+[217-END]
+
+[218]
+NAME="Pipe with invalid input file"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'cat < nonexistent.txt | wc -l'
+[218-END]
+
+[219]
+NAME="Invalid pipe and redirection combination"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN="rm -f output.txt"
+TESTS=
+  echo 'echo hello | >> output.txt'
+[219-END]
+
+[220]
+NAME="Complex erronous syntax"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'ls | ; invalidcommand'
+[220-END]
+
+[221]
+NAME="Multiple input redirections error"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'; echo 'sample' > tests/input.txt"
+CLEAN="rm -f tests/input.txt"
+TESTS=
+  echo 'cat < tests/input.txt < tests/input.txt'
+[221-END]
+
+[222]
+NAME="Only redirection operators"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo '> tests/out.txt; < tests/in.txt'
+[222-END]
+
+[223]
+NAME="Simple 'and' (&&) usage"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'echo "Hello" && echo "World"'
+[223-END]
+
+[224]
+NAME="Simple 'or' (||) usage"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'echo "Hello" || echo "World"'
+[224-END]
+
+[225]
+NAME="Complex 'and' and 'or' usage"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'echo "Hello" && echo "World" || echo "Error"'
+[225-END]
+
+[226]
+NAME="'and' operator with failure condition"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'false && echo "This should not print"'
+[226-END]
+
+[227]
+NAME="'or' operator with success condition"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'true || echo "This should not print"'
+[227-END]
+
+[228]
+NAME="Mixed success and failure with 'and' & 'or'"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'false || echo "Recovery" && echo "Success"'
+[228-END]
+
+[229]
+NAME="Precedence of 'and' & 'or' operators"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'false && echo "Never" || echo "Always"'
+[229-END]
+
+[230]
+NAME="Chained operators with mixed results"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'true && echo "First" && false && echo "Never" || echo "Recovery"'
+[230-END]
+
+[231]
+NAME="Logical operators with exit codes"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'exit 1 || echo "Exit was non-zero"; exit 0 && echo "Exit was zero"'
+[231-END]
+
+[232]
+NAME="Logical operators with wrong commands"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'nonexistentcommand && echo "Should not print" || echo "Error recovered"'
+[232-END]
+
+[233]
+NAME="Logical operators with redirections"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN="rm -f tests/logical_test.txt"
+TESTS=
+  echo 'echo "Success" > tests/logical_test.txt && cat tests/logical_test.txt || echo "Failed"'
+[233-END]
+
+[234]
+NAME="Logical operators with pipes"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'echo "test" | grep "test" && echo "Found" || echo "Not found"'
+[234-END]
+
+[235]
+NAME="Logical operators with negation patterns"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'echo "test" | grep "not-there" || echo "Not found" && echo "Continue processing"'
+[235-END]
+
+[236]
+NAME="Semicolons with logical operators"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'echo "Start"; false && echo "Never"; echo "End" || echo "Final"'
+[236-END]
+
+[237]
+NAME="Error handling in logical expressions"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'; mkdir -p tests/testdir"
+CLEAN="rmdir tests/testdir"
+TESTS=
+  echo 'cat < nonexistent.txt && echo "File exists" || echo "File does not exist"; echo "test" > tests/testdir && echo "Dir is file" || echo "Dir is not file"'
+[237-END]
+
+[238]
+NAME="Simple background execution"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'echo "Background process started" &'
+[238-END]
+
+[239]
+NAME="Background with command completion"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN="rm -f tests/bg_output.txt"
+TESTS=
+  echo 'sleep 1 & echo "This should print immediately"; echo "Done"'
+[239-END]
+
+[240]
+NAME="Builtin into pipe"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'pwd; cd include | echo "Hello"; echo "Current directory:"; pwd'
+[240-END]
+
+[241]
+NAME="Simple command grouping"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo '(echo "Hello World")'
+[241-END]
+
+[242]
+NAME="Command grouping with semicolons"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo '(echo "First"; echo "Second"); echo "Third"'
+[242-END]
+
+[243]
+NAME="Command grouping with logical AND"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo '(ls && echo "Directory listed") && echo "All succeeded"'
+[243-END]
+
+[244]
+NAME="Command grouping with logical OR"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo '(false || echo "Recovery") || echo "This should not print"'
+[244-END]
+
+[245]
+NAME="Nested command grouping"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo '(echo "Outer start" && (echo "Inner" && echo "Group") && echo "Outer end")'
+[245-END]
+
+[246]
+NAME="Command grouping with pipes"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo '(echo "Hello" && echo "World") | grep "World"'
+[246-END]
+
+[247]
+NAME="Pipe inside command group"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo '(echo "Test" | grep "T") && echo "Found T"'
+[247-END]
+
+[248]
+NAME="Command grouping with output redirection"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN="rm -f tests/group_output.txt"
+TESTS=
+  echo '(echo "Line 1" && echo "Line 2") > tests/group_output.txt; cat tests/group_output.txt'
+[248-END]
+
+[249]
+NAME="Command grouping with input redirection"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'; echo "Content for test" > tests/input_for_group.txt"
+CLEAN="rm -f tests/input_for_group.txt"
+TESTS=
+  echo '(cat < tests/input_for_group.txt && echo "Done reading")'
+[249-END]
+
+[250]
+NAME="Complex command groups with mixed operators"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo '((echo "A" && echo "B") || echo "C") && echo "Final"'
+[250-END]
+
+[251]
+NAME="Command grouping with error handling"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo '(nonexistentcmd || echo "Command failed") && echo "Continued"'
+[251-END]
+
+[252]
+NAME="Command grouping with background execution"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo '(echo "Starting background" && sleep 1 && echo "Finished background") & echo "Main shell"; sleep 2'
+[252-END]
+
+[253]
+NAME="Logical precedence with groups"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'false && (echo "Never" || echo "Also never") || echo "This will print"'
+[253-END]
+
+[254]
+NAME="Multiple nested groups"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo '(echo "L1" && (echo "L2" && (echo "L3"))) && echo "All done"'
+[254-END]
+
+[255]
+NAME="Exit codes with command groups"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo '(exit 1) || echo "Group exited with failure"'
+[255-END]
+
+[256]
+NAME="Environment changes inside groups"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo '(cd /tmp && pwd) && pwd'
+[256-END]
+
+[257]
+NAME="Complex redirection with groups"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN="rm -f tests/group1.txt tests/group2.txt"
+TESTS=
+  echo '(echo "To file 1" > tests/group1.txt && echo "To file 2" > tests/group2.txt) && cat tests/group1.txt tests/group2.txt'
+[257-END]
+
+[258]
+NAME="Error syntax handling with parentheses"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo '(echo "Missing closing parenthesis"'
+  echo 'echo "After error"'
+[258-END]
+
+[259]
+NAME="Empty command groups"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo '() && echo "After empty group"'
+  echo '()'
+[259-END]
+
+[260]
+NAME="Mixed operator precedence with groups"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'echo "First" || (echo "Second" && echo "Third") || echo "Fourth"'
+[260-END]
+
+[261]
+NAME="Very complex nested command structure"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN="rm -f tests/final_output.txt"
+TESTS=
+  echo '((echo "Start" && ls | grep "." | wc -l) && (echo "Middle" || false)) > tests/final_output.txt && cat tests/final_output.txt'
+[261-END]
+
+[262]
+NAME="Echo exit value"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'echo $?'
+[262-END]
+
+[263]
+NAME="Echo exit value after command"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'ls; echo $?'
+[263-END]
+
+[264]
+NAME="Echo exit value after failed command"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'invalidcommand; echo $?'
+[264-END]
+
+[265]
+NAME="Echo exit value in a string"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'echo "Exit value is: $?"'
+[265-END]
+
+[266]
+NAME="Echo pid"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'; export TEST_FIXED_PID=12345"
+CLEAN=""
+TESTS=
+  echo 'echo $$ | sed "s/^[0-9][0-9]*/TEST_PID/"'
+[266-END]
+
+[267]
+NAME="Echo pid after command"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'; export TEST_FIXED_PID=12345"
+CLEAN=""
+TESTS=
+  echo 'ls; echo $$ | sed "s/^[0-9][0-9]*/TEST_PID/"'
+[267-END]
+
+[268]
+NAME="Echo pid after failed command"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'; export TEST_FIXED_PID=12345"
+CLEAN=""
+TESTS=
+  echo 'invalidcommand; echo $$ | sed "s/^[0-9][0-9]*/TEST_PID/"'
+[268-END]
+
+[269]
+NAME="Echo pid in a string"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'; export TEST_FIXED_PID=12345"
+CLEAN=""
+TESTS=
+  echo 'echo "PID is: $$" | sed "s/PID is: [0-9][0-9]*/PID is: TEST_PID/"'
+[269-END]
+
+[270]
+NAME="Echo last background job PID"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'; export TEST_FIXED_PID=12345"
+CLEAN=""
+TESTS=
+  echo 'sleep 1 & echo $! | sed "s/^[0-9][0-9]*/TEST_PID/"'
+[270-END]
+
+[271]
+NAME="Echo last background job PID in a string"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'; export TEST_FIXED_PID=12345"
+CLEAN=""
+TESTS=
+  echo 'sleep 1 & echo "Last job PID: $!" | sed "s/Last job PID: [0-9][0-9]*/Last job PID: TEST_PID/"'
+[271-END]
+
+[272]
+NAME="Echo background job PID before any job"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'; export TEST_FIXED_PID=12345"
+CLEAN=""
+TESTS=
+  echo 'echo $! | sed "s/^[0-9][0-9]*/TEST_PID/"'
+[272-END]
+
+[273]
+NAME="All variable expansion types"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'; export TEST_FIXED_PID=12345"
+CLEAN=""
+TESTS=
+  echo 'echo "Exit code: $? PID: $$ Last background job: $!" | sed -E "s/Exit code: [0-9]+ PID: [0-9]+ Last background job: [0-9]*/Exit code: TEST_EXIT PID: TEST_PID Last background job: TEST_JOB/"'
+[273-END]
+
+[274]
+NAME="Error redirection basic (2>)"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN="rm -f tests/error.log"
+TESTS=
+  echo 'ls /nonexistent 2> tests/error.log; cat tests/error.log; echo "Command finished"'
+[274-END]
+
+[275]
+NAME="Combined redirection basic (&>)"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN="rm -f tests/combined.log"
+TESTS=
+  echo 'ls /nonexistent &> tests/combined.log; cat tests/combined.log; echo "Command finished"'
+[275-END]
+
+[276]
+NAME="Error redirection with command (2>)"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN="rm -f tests/success_err.log"
+TESTS=
+  echo 'echo "This goes to stdout" 2> tests/success_err.log; cat tests/success_err.log'
+[276-END]
+
+[277]
+NAME="Combined redirection with command (&>)"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN="rm -f tests/success_combined.log"
+TESTS=
+  echo 'echo "This goes to the file" &> tests/success_combined.log; cat tests/success_combined.log'
+[277-END]
+
+[278]
+NAME="Error redirection with logical operators"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN="rm -f tests/logical_err.log"
+TESTS=
+  echo 'ls /nonexistent 2> tests/logical_err.log && echo "Should not print" || echo "Error was redirected"; cat tests/logical_err.log'
+[278-END]
+
+[279]
+NAME="Combined redirection with logical operators"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN="rm -f tests/logical_combined.log"
+TESTS=
+  echo 'ls /nonexistent &> tests/logical_combined.log && echo "Should not print" || echo "Error was redirected"; cat tests/logical_combined.log'
+[279-END]
+
+[280]
+NAME="Error redirection with pipes"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN="rm -f tests/pipe_err.log"
+TESTS=
+  echo 'ls | grep nonexistent 2> tests/pipe_err.log; cat tests/pipe_err.log'
+[280-END]
+
+[281]
+NAME="Combined redirection with pipes"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN="rm -f tests/pipe_combined.log"
+TESTS=
+  echo 'ls | grep nonexistent &> tests/pipe_combined.log; cat tests/pipe_combined.log'
+[281-END]
+
+[282]
+NAME="Error redirection within command groups"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN="rm -f tests/group_err.log"
+TESTS=
+  echo '(ls /nonexistent; echo "Still in group") 2> tests/group_err.log; cat tests/group_err.log'
+[282-END]
+
+[283]
+NAME="Combined redirection within command groups"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN="rm -f tests/group_combined.log"
+TESTS=
+  echo '(ls /nonexistent; echo "Still in group") &> tests/group_combined.log; cat tests/group_combined.log'
+[283-END]
+
+[284]
+NAME="Multiple commands with error redirection"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN="rm -f tests/multi_err.log"
+TESTS=
+  echo 'ls; ls /nonexistent 2> tests/multi_err.log; cat tests/multi_err.log'
+[284-END]
+
+[285]
+NAME="Multiple commands with combined redirection"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN="rm -f tests/multi_combined.log"
+TESTS=
+  echo 'ls; ls /nonexistent &> tests/multi_combined.log; cat tests/multi_combined.log'
+[285-END]
+
+[286]
+NAME="History command"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'echo "Hello World"'
+  echo 'history'
+[286-END]
+
+[287]
+NAME="History with multiple commands"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'echo "First command"'
+  echo 'pwd'
+  echo 'ls -la'
+  echo 'echo "Last command"'
+  echo 'history | grep "command" | wc -l'
+[287-END]
+
+[288]
+NAME="Empty commands in history"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'echo "Command 1"'
+  echo ''
+  echo 'echo "Command 2"'
+  echo 'history | wc -l'
+[288-END]
+
+[289]
+NAME="History with a number"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'echo "Command 1"'
+  echo 'echo "Command 2"'
+  echo 'history 1'
+[289-END]
+
+[290]
+NAME="Simple if statement"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'if test -f /etc/passwd; then echo "File exists"; fi'
+[290-END]
+
+[291]
+NAME="If-else statement"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'if test -f /nonexistent; then echo "True branch"; else echo "False branch"; fi'
+[291-END]
+
+[292]
+NAME="If with elif branch (successful elif)"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'if test 0 -eq 1; then echo "First"; elif test 1 -eq 1; then echo "Second"; else echo "Third"; fi'
+[292-END]
+
+[293]
+NAME="If with elif branches (last successful)"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'if test 0 -eq 1; then echo "First"; elif test 0 -eq 1; then echo "Second"; elif test 1 -eq 1; then echo "Third"; else echo "Fourth"; fi'
+[293-END]
+
+[294]
+NAME="If with elif branches (all fail)"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'if test 0 -eq 1; then echo "First"; elif test 0 -eq 1; then echo "Second"; elif test 0 -eq 1; then echo "Third"; else echo "Fourth"; fi'
+[294-END]
+
+[295]
+NAME="If statement with command substitution"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN="rm -f tests/if_out.txt"
+TESTS=
+  echo 'if ls > tests/if_out.txt; then (echo "Command succeeded"; cat tests/if_out.txt | wc -l); else echo "Command failed"; fi'
+[295-END]
+
+[296]
+NAME="Exit code from if statement"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'if true; then echo "Success"; fi; echo $?'
+  echo 'if false; then echo "Never shown"; else echo "False branch"; fi; echo $?'
+[296-END]
+
+[297]
+NAME="Nested if statements"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'if test -d /tmp; then if test -w /tmp; then echo "Tmp is writable"; else echo "Tmp exists but not writable"; fi; else echo "Tmp does not exist"; fi'
+[297-END]
+
+[298]
+NAME="If statement with pipes"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'if echo "test" | grep "test"; then echo "Found pattern"; else echo "Pattern not found"; fi'
+[298-END]
+
+[299]
+NAME="If statement with semicolons in commands"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'if test -d /tmp; then (echo "Dir exists"; echo "Continuing"); else echo "No dir"; fi'
+[299-END]
+
+[300]
+NAME="If statement with logical operators"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'if test 1 -eq 1 && test 2 -eq 2; then echo "Both true"; else echo "Something false"; fi'
+[300-END]
+
+[301]
+NAME="Simple while loop with test command"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN="rm -f tests/counter.txt"
+TESTS=
+  echo 'touch tests/counter.txt; while test -f tests/counter.txt; do (echo "Loop iteration"; rm tests/counter.txt); done'
+[301-END]
+
+[302]
+NAME="While loop with exit code condition"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN="rm -f tests/while_test"
+TESTS=
+  echo 'touch tests/while_test; while test -f tests/while_test; do (echo "File exists"; rm tests/while_test); done; echo "Loop finished"'
+[302-END]
+
+[304]
+NAME="While with redirection"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN="rm -f tests/while_marker.txt tests/while_output.txt"
+TESTS=
+  echo 'touch tests/while_marker.txt; while test -f tests/while_marker.txt; do (echo "Writing output" > tests/while_output.txt; rm tests/while_marker.txt); done; cat tests/while_output.txt'
+[304-END]
+
+[305]
+NAME="While with logical AND"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN="rm -f tests/test1.txt tests/test2.txt"
+TESTS=
+  echo 'touch tests/test1.txt tests/test2.txt; while test -f tests/test1.txt && test -f tests/test2.txt; do (echo "Both files exist"; rm tests/test1.txt); done'
+[305-END]
+
+[306]
+NAME="While with logical OR"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN="rm -f tests/test1.txt tests/test2.txt"
+TESTS=
+  echo 'touch tests/test1.txt; while test -f tests/test1.txt || test -f tests/test2.txt; do (echo "At least one file exists"; rm tests/test1.txt; touch tests/test2.txt; rm tests/test2.txt); done'
+[306-END]
+
+[307]
+NAME="Nested while loops"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN="rm -f tests/outer.txt tests/inner.txt"
+TESTS=
+  echo 'touch tests/outer.txt; while test -f tests/outer.txt; do (echo "Outer loop"; touch tests/inner.txt; while test -f tests/inner.txt; do (echo "  Inner loop"; rm tests/inner.txt); done; rm tests/outer.txt); done'
+[307-END]
+
+[308]
+NAME="While loop using exit status ($?)"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN="rm -f tests/status_test.txt"
+TESTS=
+  echo 'echo "Initial" > tests/status_test.txt; while grep -q "Initial" tests/status_test.txt; do (echo "Status found"; echo "Changed" > tests/status_test.txt; echo $?); done; echo "Loop complete"'
+[308-END]
+
+[309]
+NAME="Set local variable - no spaces"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'count=42'
+  echo 'echo $count'
+[309-END]
+
+[310]
+NAME="Unset local variable"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'temp=123'
+  echo 'echo $temp'
+  echo 'unset temp'
+  echo 'echo $temp'
+[310-END]
+
+[311]
+NAME="Use variable in command argument"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'filename="tests.sample"'
+  echo 'wc -l $filename | cut -d " " -f 1'
+[311-END]
+
+[312]
+NAME="Multiple variables in one command"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'first="Hello"'
+  echo 'second="World"'
+  echo 'echo $first $second!'
+[312-END]
+
+[313]
+NAME="Variable with underscore"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'user_name="admin"'
+  echo 'echo $user_name'
+[313-END]
+
+[314]
+NAME="Overwrite existing variable"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'test_var="original"'
+  echo 'echo $test_var'
+  echo 'test_var="updated"'
+  echo 'echo $test_var'
+[314-END]
+
+[315]
+NAME="Access environment variable"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'echo $PATH'
+[315-END]
+
+[316]
+NAME="Multiple variable expansions in one string"
+SETUP="export TERM=xterm; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'name="User"'
+  echo 'age=25'
+  echo 'echo "$name is $age years old"'
+[316-END]
