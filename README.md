@@ -70,4 +70,7 @@ The `.env` file is automatically ignored by Git to prevent accidentally committi
 
 1. Type your query in the shell prompt
 2. Press `Ctrl+I` to send it to ChatGPT
-3. The response will be displayed in the terminal 
+3. The response will be displayed in the terminal
+
+
+Credit to Louis BAGNOL, Gabriel BRUMENT, Louis PUJOL, Gabin SCHIRO
